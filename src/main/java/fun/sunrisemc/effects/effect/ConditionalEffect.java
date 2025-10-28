@@ -92,7 +92,7 @@ public class ConditionalEffect {
             boolean showIcon = true;
 
             if (effectType == null) {
-                ConditionalEffectsPlugin.logWarning("Invalid potion effect " + effectName + " in conditional effect " + id);
+                ConditionalEffectsPlugin.logWarning("Invalid potion effect " + effectName + " in conditional effect " + id + ".");
                 ConditionalEffectsPlugin.logWarning("Expected format: <EffectType>, [Amplifier], [Duration], [ShowParticles], [ShowIcon]");
                 continue;
             }
@@ -102,7 +102,7 @@ public class ConditionalEffect {
                 try {
                     effectAmplifier = Integer.parseInt(amplifierString);
                 } catch (NumberFormatException e) {
-                    ConditionalEffectsPlugin.logWarning("Invalid potion effect amplifier " + amplifierString + " in conditional effect " + id);
+                    ConditionalEffectsPlugin.logWarning("Invalid potion effect amplifier " + amplifierString + " in conditional effect " + id + ".");
                     ConditionalEffectsPlugin.logWarning("Expected format: <EffectType>, [Amplifier], [Duration], [ShowParticles], [ShowIcon]");
                     continue;
                 }
@@ -113,7 +113,7 @@ public class ConditionalEffect {
                 try {
                     effectDurationTicks = Integer.parseInt(durationString);
                 } catch (NumberFormatException e) {
-                    ConditionalEffectsPlugin.logWarning("Invalid potion effect duration " + durationString + " in conditional effect " + id);
+                    ConditionalEffectsPlugin.logWarning("Invalid potion effect duration " + durationString + " in conditional effect " + id + ".");
                     ConditionalEffectsPlugin.logWarning("Expected format: <EffectType>, [Amplifier], [Duration], [ShowParticles], [ShowIcon]");
                     continue;
                 }
