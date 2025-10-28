@@ -2,6 +2,7 @@ package fun.sunrisemc.effects.effect;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -13,6 +14,24 @@ import org.bukkit.potion.PotionEffectType;
 import fun.sunrisemc.effects.ConditionalEffectsPlugin;
 
 public class ConditionalEffect {
+
+    private final List<String> SETTINGS = List.of(
+        "condition-check-interval-ticks",
+        "effects",
+        "conditions"
+    );
+
+    private final List<String> CONDITIONS = List.of(
+        "worlds",
+        "environments",
+        "biomes",
+        "min-x",
+        "min-y",
+        "min-z",
+        "max-x",
+        "max-y",
+        "max-z"
+    );
 
     private final String id;
 
@@ -34,8 +53,24 @@ public class ConditionalEffect {
     ConditionalEffect(YamlConfiguration config, String id) {
         this.id = id;
 
-        if (config.contains(id + ".check-interval-ticks")) {
-            this.checkIntervalTicks = getIntClamped(config, id + ".check-interval-ticks", 0, Integer.MAX_VALUE);
+        for (String setting : config.getConfigurationSection(id).getKeys(false)) {
+            if (!SETTINGS.contains(setting)) {
+                ConditionalEffectsPlugin.logWarning("Invalid setting for effect " + id + ": " + setting + ".");
+                ConditionalEffectsPlugin.logWarning("Valid settings are: " + String.join(", ", SETTINGS) + ".");
+            }
+        }
+
+        if (config.contains(id + ".conditions")) {
+            for (String condition : config.getConfigurationSection(id + ".conditions").getKeys(false)) {
+                if (!CONDITIONS.contains(condition)) {
+                    ConditionalEffectsPlugin.logWarning("Invalid condition for effect " + id + ": " + condition + ".");
+                    ConditionalEffectsPlugin.logWarning("Valid conditions are: " + String.join(", ", CONDITIONS) + ".");
+                }
+            }
+        }
+
+        if (config.contains(id + ".condition-check-interval-ticks")) {
+            this.checkIntervalTicks = getIntClamped(config, id + ".condition-check-interval-ticks", 0, Integer.MAX_VALUE);
         }
 
         for (String effectString : config.getStringList(id + ".effects")) {
