@@ -10,6 +10,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 import fun.sunrisemc.effects.ConditionalEffectsPlugin;
 
@@ -50,7 +51,7 @@ public class ConditionalEffect {
     private Integer minZ = null;
     private Integer maxZ = null;
 
-    ConditionalEffect(YamlConfiguration config, String id) {
+    ConditionalEffect(@NonNull YamlConfiguration config, @NonNull String id) {
         this.id = id;
 
         // Settings Checks
@@ -176,7 +177,7 @@ public class ConditionalEffect {
         return tickCount % checkIntervalTicks == 0;
     }
 
-    public boolean conditionsMet(Player player) {
+    public boolean conditionsMet(@NonNull Player player) {
         Location location = player.getLocation();
         World world = location.getWorld();
 
@@ -214,11 +215,11 @@ public class ConditionalEffect {
         return true;
     }
 
-    public void applyEffects(Player player) {
+    public void applyEffects(@NonNull Player player) {
         player.addPotionEffects(effects);
     }
 
-    private int getIntClamped(YamlConfiguration config, String path, int min, int max) {
+    private int getIntClamped(@NonNull YamlConfiguration config, @NonNull String path, int min, int max) {
         int value = config.getInt(path);
         return Math.clamp(value, min, max);
     }
