@@ -53,6 +53,8 @@ public class ConditionalEffect {
     ConditionalEffect(YamlConfiguration config, String id) {
         this.id = id;
 
+        // Settings Checks
+
         for (String setting : config.getConfigurationSection(id).getKeys(false)) {
             if (!SETTINGS.contains(setting)) {
                 ConditionalEffectsPlugin.logWarning("Invalid setting for effect " + id + ": " + setting + ".");
@@ -68,6 +70,8 @@ public class ConditionalEffect {
                 }
             }
         }
+
+        // Load Settings
 
         if (config.contains(id + ".condition-check-interval-ticks")) {
             this.checkIntervalTicks = getIntClamped(config, id + ".condition-check-interval-ticks", 0, Integer.MAX_VALUE);
@@ -94,7 +98,6 @@ public class ConditionalEffect {
             }
 
             if (effectStringParts.length >= 2) {
-                // Handle errors with a logging message
                 String amplifierString = effectStringParts[1].trim();
                 try {
                     effectAmplifier = Integer.parseInt(amplifierString);
@@ -127,6 +130,8 @@ public class ConditionalEffect {
             PotionEffect effect = new PotionEffect(effectType, effectDurationTicks, effectAmplifier, showParticles, showIcon);
             this.effects.add(effect);
         }
+
+        // Load Conditions
 
         for (String worldName : config.getStringList(id + ".conditions.worlds")) {
             this.worlds.add(worldName);
