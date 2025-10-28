@@ -13,3 +13,7 @@ commands:
 permissions:
   conditionaleffects.reload:
     description: Allows the user to reload the plugin
+  conditonaleffects.give:
+    description: Allows the user to give conditional effects to players
+  conditionaleffects.check:
+    description: Allows the user to manually check conditional effects on players
