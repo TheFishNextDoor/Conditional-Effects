@@ -1,17 +1,19 @@
 example-effect:
+  check-interval-ticks: 20
   effects:
   - SPEED, 2
   - JUMP_BOOST, 2
-  worlds:
-  - worlds
-  environments:
-  - OVERWORLD
-  biomes:
-  - PLAINS
-  - FOREST
-  min-x: -100
-  min-y: 50
-  min-z: -100
-  max-x: 100
-  max-y: 150
-  max-z: 100
+  conditions:
+    worlds:
+    - worlds
+    environments:
+    - OVERWORLD
+    biomes:
+    - PLAINS
+    - FOREST
+    min-x: -100
+    min-y: 50
+    min-z: -100
+    max-x: 100
+    max-y: 150
+    max-z: 100

@@ -12,17 +12,20 @@ import fun.sunrisemc.effects.effect.ConditionalEffectManager;
 
 public class EffectsTimer {
 
-    private static final int INTERVAL = 20 * 2 ; // 2 seconds
+    private static final int INTERVAL_TICKS = 1 ; // 1 tick
 
     private static int id = -1;
+
+    private static int tickCount = 0;
 
     public static void start() {
         if (id != -1) {
             return;
         }
         id = Bukkit.getScheduler().runTaskTimerAsynchronously(ConditionalEffectsPlugin .getInstance(), () -> {
+            tickCount++;
             run();
-        }, INTERVAL, INTERVAL).getTaskId();
+        }, INTERVAL_TICKS, INTERVAL_TICKS).getTaskId();
     }
 
     public static void stop() {
@@ -36,8 +39,11 @@ public class EffectsTimer {
     private static void run() {
         List<ConditionalEffect> conditionalEffects = ConditionalEffectManager.getAll();
         Collection<? extends Player> players = Bukkit.getOnlinePlayers();
-        for (Player player : players) {
-            for (ConditionalEffect conditionalEffect : conditionalEffects) {
+        for (ConditionalEffect conditionalEffect : conditionalEffects) {
+            if (!conditionalEffect.checkInterval(tickCount)) {
+                continue;
+            }
+            for (Player player : players) {
                 if (conditionalEffect.conditionsMet(player)) {
                     conditionalEffect.applyEffects(player);
                 }

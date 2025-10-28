@@ -1,15 +1,24 @@
 package fun.sunrisemc.effects.effect;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
+
+import fun.sunrisemc.effects.ConditionalEffectsPlugin;
 
 public class ConditionalEffect {
 
     private final String id;
+
+    private int checkIntervalTicks = 40;
+
+    private ArrayList<PotionEffect> effects = new ArrayList<>();
 
     private HashSet<String> worlds = new HashSet<>();
     private HashSet<String> environments = new HashSet<>();
@@ -25,40 +34,103 @@ public class ConditionalEffect {
     ConditionalEffect(YamlConfiguration config, String id) {
         this.id = id;
 
-        for (String worldName : config.getStringList(id + ".worlds")) {
+        if (config.contains(id + ".check-interval-ticks")) {
+            this.checkIntervalTicks = getIntClamped(config, id + ".check-interval-ticks", 1, Integer.MAX_VALUE);
+        }
+
+        for (String effectString : config.getStringList(id + ".effects")) {
+            String[] effectStringParts = effectString.split(",");
+
+            if (effectStringParts.length < 1) {
+                continue;
+            }
+
+            String effectName = effectStringParts[0].trim().toUpperCase();
+            PotionEffectType effectType = PotionEffectType.getByName(effectName);
+            int effectAmplifier = 0;
+            int effectDurationTicks = 60;
+            boolean showParticles = false;
+            boolean showIcon = true;
+
+            if (effectType == null) {
+                ConditionalEffectsPlugin.logWarning("Invalid potion effect " + effectName + " in conditional effect " + id);
+                ConditionalEffectsPlugin.logWarning("Expected format: <EffectType>, [Amplifier], [Duration], [ShowParticles], [ShowIcon]");
+                continue;
+            }
+
+            if (effectStringParts.length >= 2) {
+                // Handle errors with a logging message
+                String amplifierString = effectStringParts[1].trim();
+                try {
+                    effectAmplifier = Integer.parseInt(amplifierString);
+                } catch (NumberFormatException e) {
+                    ConditionalEffectsPlugin.logWarning("Invalid potion effect amplifier " + amplifierString + " in conditional effect " + id);
+                    ConditionalEffectsPlugin.logWarning("Expected format: <EffectType>, [Amplifier], [Duration], [ShowParticles], [ShowIcon]");
+                    continue;
+                }
+            }
+
+            if (effectStringParts.length >= 3) {
+                String durationString = effectStringParts[2].trim();
+                try {
+                    effectDurationTicks = Integer.parseInt(durationString);
+                } catch (NumberFormatException e) {
+                    ConditionalEffectsPlugin.logWarning("Invalid potion effect duration " + durationString + " in conditional effect " + id);
+                    ConditionalEffectsPlugin.logWarning("Expected format: <EffectType>, [Amplifier], [Duration], [ShowParticles], [ShowIcon]");
+                    continue;
+                }
+            }
+
+            if (effectStringParts.length >= 4) {
+                showParticles = Boolean.parseBoolean(effectStringParts[3].trim());
+            }
+
+            if (effectStringParts.length >= 5) {
+                showIcon = Boolean.parseBoolean(effectStringParts[4].trim());
+            }
+
+            PotionEffect effect = new PotionEffect(effectType, effectDurationTicks, effectAmplifier, showParticles, showIcon);
+            this.effects.add(effect);
+        }
+
+        for (String worldName : config.getStringList(id + ".conditions.worlds")) {
             this.worlds.add(worldName);
         }
 
-        for (String environmentName : config.getStringList(id + ".environments")) {
+        for (String environmentName : config.getStringList(id + ".conditions.environments")) {
             this.environments.add(environmentName);
         }
 
-        for (String biomeName : config.getStringList(id + ".biomes")) {
+        for (String biomeName : config.getStringList(id + ".conditions.biomes")) {
             this.biomes.add(biomeName);
         }
 
         if (config.contains(id + ".min-x")) {
-            this.minX = config.getInt(id + ".min-x");
+            this.minX = config.getInt(id + ".conditions.min-x");
         }
         if (config.contains(id + ".max-x")) {
-            this.maxX = config.getInt(id + ".max-x");
+            this.maxX = config.getInt(id + ".conditions.max-x");
         }
         if (config.contains(id + ".min-y")) {
-            this.minY = config.getInt(id + ".min-y");
+            this.minY = config.getInt(id + ".conditions.min-y");
         }
         if (config.contains(id + ".max-y")) {
-            this.maxY = config.getInt(id + ".max-y");
+            this.maxY = config.getInt(id + ".conditions.max-y");
         }
         if (config.contains(id + ".min-z")) {
-            this.minZ = config.getInt(id + ".min-z");
+            this.minZ = config.getInt(id + ".conditions.min-z");
         }
         if (config.contains(id + ".max-z")) {
-            this.maxZ = config.getInt(id + ".max-z");
+            this.maxZ = config.getInt(id + ".conditions.max-z");
         }
     }
 
     public String getId() {
         return id;
+    }
+
+    public boolean checkInterval(int tickCount) {
+        return tickCount % checkIntervalTicks == 0;
     }
 
     public boolean conditionsMet(Player player) {
@@ -100,6 +172,11 @@ public class ConditionalEffect {
     }
 
     public void applyEffects(Player player) {
-        // Placeholder for applying effects to the player
+        player.addPotionEffects(effects);
+    }
+
+    private int getIntClamped(YamlConfiguration config, String path, int min, int max) {
+        int value = config.getInt(path);
+        return Math.clamp(value, min, max);
     }
 }
