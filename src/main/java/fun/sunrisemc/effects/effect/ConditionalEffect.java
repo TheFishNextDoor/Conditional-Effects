@@ -35,7 +35,7 @@ public class ConditionalEffect {
         this.id = id;
 
         if (config.contains(id + ".check-interval-ticks")) {
-            this.checkIntervalTicks = getIntClamped(config, id + ".check-interval-ticks", 1, Integer.MAX_VALUE);
+            this.checkIntervalTicks = getIntClamped(config, id + ".check-interval-ticks", 0, Integer.MAX_VALUE);
         }
 
         for (String effectString : config.getStringList(id + ".effects")) {
@@ -130,6 +130,9 @@ public class ConditionalEffect {
     }
 
     public boolean checkInterval(int tickCount) {
+        if (checkIntervalTicks <= 0) {
+            return false;
+        }
         return tickCount % checkIntervalTicks == 0;
     }
 
