@@ -105,22 +105,22 @@ public class ConditionalEffect {
             this.biomes.add(biomeName);
         }
 
-        if (config.contains(id + ".min-x")) {
+        if (config.contains(id + ".conditions.min-x")) {
             this.minX = config.getInt(id + ".conditions.min-x");
         }
-        if (config.contains(id + ".max-x")) {
+        if (config.contains(id + ".conditions.max-x")) {
             this.maxX = config.getInt(id + ".conditions.max-x");
         }
-        if (config.contains(id + ".min-y")) {
+        if (config.contains(id + ".conditions.min-y")) {
             this.minY = config.getInt(id + ".conditions.min-y");
         }
-        if (config.contains(id + ".max-y")) {
+        if (config.contains(id + ".conditions.max-y")) {
             this.maxY = config.getInt(id + ".conditions.max-y");
         }
-        if (config.contains(id + ".min-z")) {
+        if (config.contains(id + ".conditions.min-z")) {
             this.minZ = config.getInt(id + ".conditions.min-z");
         }
-        if (config.contains(id + ".max-z")) {
+        if (config.contains(id + ".conditions.max-z")) {
             this.maxZ = config.getInt(id + ".conditions.max-z");
         }
     }
