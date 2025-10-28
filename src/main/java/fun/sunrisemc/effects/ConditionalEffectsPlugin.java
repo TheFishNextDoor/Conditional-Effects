@@ -7,6 +7,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
 import fun.sunrisemc.effects.command.ConditionalEffects;
+import fun.sunrisemc.effects.effect.ConditionalEffectManager;
 import fun.sunrisemc.effects.schedular.EffectsTimer;
 
 public class ConditionalEffectsPlugin extends JavaPlugin {
@@ -19,6 +20,8 @@ public class ConditionalEffectsPlugin extends JavaPlugin {
 
         registerCommand("conditionaleffects", new ConditionalEffects());
 
+        loadConfigs();
+
         EffectsTimer.start();
 
         logInfo("Plugin enabled.");
@@ -28,6 +31,10 @@ public class ConditionalEffectsPlugin extends JavaPlugin {
     public void onDisable() {
         EffectsTimer.stop();
         logInfo("Plugin disabled.");
+    }
+
+    public static void loadConfigs() {
+        ConditionalEffectManager.loadConfig();
     }
 
     public static ConditionalEffectsPlugin getInstance() {

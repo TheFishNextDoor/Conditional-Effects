@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.bukkit.configuration.file.YamlConfiguration;
 
+import fun.sunrisemc.effects.ConditionalEffectsPlugin;
 import fun.sunrisemc.effects.file.ConfigFile;
 
 public class ConditionalEffectManager {
@@ -19,12 +20,14 @@ public class ConditionalEffectManager {
     public static void loadConfig() {
         ArrayList<ConditionalEffect> tempConditionalEffects = new ArrayList<>();
 
-        YamlConfiguration config = ConfigFile.get("unlocks", false);
+        YamlConfiguration config = ConfigFile.get("effects", false);
         for (String id : config.getKeys(false)) {
             ConditionalEffect conditionalEffect = new ConditionalEffect(config, id);
             tempConditionalEffects.add(conditionalEffect);
         }
 
         conditionalEffects = Collections.unmodifiableList(tempConditionalEffects);
+
+        ConditionalEffectsPlugin.logInfo("Loaded " + conditionalEffects.size() + " conditional effects.");
     }
 }

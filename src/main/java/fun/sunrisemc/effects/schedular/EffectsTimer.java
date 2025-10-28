@@ -22,7 +22,7 @@ public class EffectsTimer {
         if (id != -1) {
             return;
         }
-        id = Bukkit.getScheduler().runTaskTimerAsynchronously(ConditionalEffectsPlugin .getInstance(), () -> {
+        id = Bukkit.getScheduler().runTaskTimer(ConditionalEffectsPlugin .getInstance(), () -> {
             tickCount++;
             run();
         }, INTERVAL_TICKS, INTERVAL_TICKS).getTaskId();

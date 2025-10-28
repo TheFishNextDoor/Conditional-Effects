@@ -48,7 +48,7 @@ public class ConditionalEffect {
             String effectName = effectStringParts[0].trim().toUpperCase();
             PotionEffectType effectType = PotionEffectType.getByName(effectName);
             int effectAmplifier = 0;
-            int effectDurationTicks = 60;
+            int effectDurationTicks = this.checkIntervalTicks + 10;
             boolean showParticles = false;
             boolean showIcon = true;
 
