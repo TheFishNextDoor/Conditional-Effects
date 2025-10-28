@@ -16,7 +16,7 @@ import fun.sunrisemc.effects.ConditionalEffectsPlugin;
 public class ConditionalEffect {
 
     private final List<String> SETTINGS = List.of(
-        "condition-check-interval-ticks",
+        "conditions-check-interval-ticks",
         "effects",
         "conditions"
     );
@@ -73,8 +73,8 @@ public class ConditionalEffect {
 
         // Load Settings
 
-        if (config.contains(id + ".condition-check-interval-ticks")) {
-            this.checkIntervalTicks = getIntClamped(config, id + ".condition-check-interval-ticks", 0, Integer.MAX_VALUE);
+        if (config.contains(id + ".conditions-check-interval-ticks")) {
+            this.checkIntervalTicks = getIntClamped(config, id + ".conditions-check-interval-ticks", 0, Integer.MAX_VALUE);
         }
 
         for (String effectString : config.getStringList(id + ".effects")) {
