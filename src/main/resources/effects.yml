@@ -1,19 +1,9 @@
-example-effect:
-  check-interval-ticks: 20
-  effects:
-  - SPEED, 2
-  - JUMP_BOOST, 2
-  conditions:
-    worlds:
-    - worlds
-    environments:
-    - OVERWORLD
-    biomes:
-    - PLAINS
-    - FOREST
-    min-x: -100
-    min-y: 50
-    min-z: -100
-    max-x: 100
-    max-y: 150
-    max-z: 100
+# This is an example configuration for providing speed and jump boost effects in the hub world.
+#hub-effects:
+#  conditions-check-interval-ticks: 20
+#  effects:
+#  - SPEED, 1
+#  - JUMP_BOOST, 1
+#  conditions:
+#    worlds:
+#    - hub
