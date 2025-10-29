@@ -12,3 +12,23 @@ Apply potion effects to players based on pre-defined conditions.
 - **/conditionaleffects reload**: Reload the plugin
 - **/conditionaleffects give &lt;player&gt; &lt;effectId&gt;**: Give a conditional effect to a player
 - **/conditionaleffects check &lt;player&gt; &lt;effectId&gt;**: Manually check a conditional effect on a player
+
+## Effects
+```yaml
+hub-effects:
+  conditions-check-interval-ticks: 20
+  effects:
+  - SPEED, 1
+  - JUMP_BOOST, 1
+  conditions:
+    worlds:
+    - hub
+```
+This example effect will provide speed and jump boost effects in the hub world.
+
+### Settings
+- **conditions-check-interval-ticks**: The number of ticks between each condition check
+- **effects**: The potion effects that will be applied when the conditions are met. In the format &lt;EffectType&gt;, \[Amplifier], \[Duration], \[HideParticles], \[ShowIcon]
+- **conditions**: The conditions that must be met in order for the effects to applied. See the [Conditions](#condiions) section below.
+
+### Conditions
