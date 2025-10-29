@@ -14,6 +14,8 @@ public class ConditionalEffectsPlugin extends JavaPlugin {
 
     private static ConditionalEffectsPlugin instance;
 
+    private static boolean debug = false;
+
     @Override
     public void onEnable() {
         instance = this;
@@ -39,6 +41,20 @@ public class ConditionalEffectsPlugin extends JavaPlugin {
 
     public static ConditionalEffectsPlugin getInstance() {
         return instance;
+    }
+
+    public static boolean isDebug() {
+        return debug;
+    }
+
+    public static void setDebug(boolean debug) {
+        ConditionalEffectsPlugin.debug = debug;
+    }
+
+    public static void logDebug(@NonNull String message) {
+        if (isDebug()) {
+            getInstance().getLogger().info("[DEBUG] " + message);
+        }
     }
 
     public static void logInfo(@NonNull String message) {

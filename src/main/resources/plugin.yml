@@ -17,3 +17,5 @@ permissions:
     description: Allows the user to give conditional effects to players
   conditionaleffects.check:
     description: Allows the user to manually check conditional effects on players
+  conditionaleffects.debug:
+    description: Allows the user to toggle debug mode
