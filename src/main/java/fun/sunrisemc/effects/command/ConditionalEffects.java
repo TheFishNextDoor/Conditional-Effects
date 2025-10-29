@@ -133,15 +133,15 @@ public class ConditionalEffects implements CommandExecutor, TabCompleter {
 
     private void helpMessage(@NonNull CommandSender sender) {
         sender.sendMessage(ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "Conditional Effects Help");
-        sender.sendMessage(ChatColor.LIGHT_PURPLE + "/ce help " + ChatColor.WHITE + "Show this help message");
+        sender.sendMessage(ChatColor.LIGHT_PURPLE + "/conditionaleffects help " + ChatColor.WHITE + "Show this help message");
         if (sender.hasPermission(Permissions.RELOAD_PERMISSION)) {
-            sender.sendMessage(ChatColor.LIGHT_PURPLE + "/ce reload " + ChatColor.WHITE + "Reload the configuration files");
+            sender.sendMessage(ChatColor.LIGHT_PURPLE + "/conditionaleffects reload " + ChatColor.WHITE + "Reload the plugin");
         }
         if (sender.hasPermission(Permissions.GIVE_PERMISSION)) {
-            sender.sendMessage(ChatColor.LIGHT_PURPLE + "/ce give <player> <effectId> " + ChatColor.WHITE + "Give a conditional effect to a player");
+            sender.sendMessage(ChatColor.LIGHT_PURPLE + "/conditionaleffects give <player> <effectId> " + ChatColor.WHITE + "Give a conditional effect to a player");
         }
         if (sender.hasPermission(Permissions.CHECK_PERMISSION)) {
-            sender.sendMessage(ChatColor.LIGHT_PURPLE + "/ce check <player> <effectId> " + ChatColor.WHITE + "Manually check a conditional effect on a player");
+            sender.sendMessage(ChatColor.LIGHT_PURPLE + "/conditionaleffects check <player> <effectId> " + ChatColor.WHITE + "Manually check a conditional effect on a player");
         }
     }
 
