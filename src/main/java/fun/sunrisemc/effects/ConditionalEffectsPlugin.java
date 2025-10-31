@@ -8,7 +8,7 @@ import org.checkerframework.checker.nullness.qual.NonNull;
 
 import fun.sunrisemc.effects.command.ConditionalEffects;
 import fun.sunrisemc.effects.conditional_effect.ConditionalEffectManager;
-import fun.sunrisemc.effects.repeating_task.EffectsTimer;
+import fun.sunrisemc.effects.repeating_task.ConditionsCheckTask;
 
 public class ConditionalEffectsPlugin extends JavaPlugin {
 
@@ -22,14 +22,14 @@ public class ConditionalEffectsPlugin extends JavaPlugin {
 
         loadConfigs();
 
-        EffectsTimer.start();
+        ConditionsCheckTask.start();
 
         logInfo("Plugin enabled.");
     }
 
     @Override
     public void onDisable() {
-        EffectsTimer.stop();
+        ConditionsCheckTask.stop();
         logInfo("Plugin disabled.");
     }
 

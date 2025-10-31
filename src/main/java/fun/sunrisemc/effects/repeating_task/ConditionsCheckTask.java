@@ -10,7 +10,7 @@ import fun.sunrisemc.effects.ConditionalEffectsPlugin;
 import fun.sunrisemc.effects.conditional_effect.ConditionalEffect;
 import fun.sunrisemc.effects.conditional_effect.ConditionalEffectManager;
 
-public class EffectsTimer {
+public class ConditionsCheckTask {
 
     private static final int INTERVAL_TICKS = 1 ; // 1 tick
 
