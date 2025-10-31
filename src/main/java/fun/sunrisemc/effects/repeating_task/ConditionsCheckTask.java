@@ -23,6 +23,9 @@ public class ConditionsCheckTask {
             return;
         }
         id = Bukkit.getScheduler().runTaskTimer(ConditionalEffectsPlugin .getInstance(), () -> {
+            if (tickCount == Integer.MAX_VALUE) {
+                tickCount = 0;
+            }
             tickCount++;
             run();
         }, INTERVAL_TICKS, INTERVAL_TICKS).getTaskId();
