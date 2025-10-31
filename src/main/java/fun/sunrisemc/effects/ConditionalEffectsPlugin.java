@@ -7,8 +7,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
 import fun.sunrisemc.effects.command.ConditionalEffects;
-import fun.sunrisemc.effects.effect.ConditionalEffectManager;
-import fun.sunrisemc.effects.schedular.EffectsTimer;
+import fun.sunrisemc.effects.conditional_effect.ConditionalEffectManager;
+import fun.sunrisemc.effects.repeating_task.EffectsTimer;
 
 public class ConditionalEffectsPlugin extends JavaPlugin {
 

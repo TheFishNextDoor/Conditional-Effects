@@ -1,4 +1,4 @@
-package fun.sunrisemc.effects.effect;
+package fun.sunrisemc.effects.conditional_effect;
 
 import java.util.ArrayList;
 import java.util.HashSet;

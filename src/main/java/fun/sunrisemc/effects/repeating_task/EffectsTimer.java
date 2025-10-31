@@ -1,4 +1,4 @@
-package fun.sunrisemc.effects.schedular;
+package fun.sunrisemc.effects.repeating_task;
 
 import java.util.Collection;
 import java.util.List;
@@ -7,8 +7,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import fun.sunrisemc.effects.ConditionalEffectsPlugin;
-import fun.sunrisemc.effects.effect.ConditionalEffect;
-import fun.sunrisemc.effects.effect.ConditionalEffectManager;
+import fun.sunrisemc.effects.conditional_effect.ConditionalEffect;
+import fun.sunrisemc.effects.conditional_effect.ConditionalEffectManager;
 
 public class EffectsTimer {
 

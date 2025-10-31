@@ -13,8 +13,8 @@ import org.bukkit.entity.Player;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
 import fun.sunrisemc.effects.ConditionalEffectsPlugin;
-import fun.sunrisemc.effects.effect.ConditionalEffect;
-import fun.sunrisemc.effects.effect.ConditionalEffectManager;
+import fun.sunrisemc.effects.conditional_effect.ConditionalEffect;
+import fun.sunrisemc.effects.conditional_effect.ConditionalEffectManager;
 import fun.sunrisemc.effects.permission.Permissions;
 import net.md_5.bungee.api.ChatColor;
 
