@@ -12,6 +12,8 @@ import fun.sunrisemc.effects.ConditionalEffectsPlugin;
 
 public class ConfigFile {
 
+    // File Modification Helpers
+
     public static YamlConfiguration get(@NonNull String name, boolean copyMissingDefaults) {
         File configFile = new File(getFolder(), name + ".yml");
         if (!configFile.exists()) {
@@ -95,5 +97,12 @@ public class ConfigFile {
             }
         }
         return changed;
+    }
+
+    // File Reading Helpers
+
+    public static int getIntClamped(@NonNull YamlConfiguration config, @NonNull String path, int min, int max) {
+        int value = config.getInt(path);
+        return Math.clamp(value, min, max);
     }
 }

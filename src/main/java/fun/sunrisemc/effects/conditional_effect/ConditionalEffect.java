@@ -13,6 +13,7 @@ import org.bukkit.potion.PotionEffectType;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
 import fun.sunrisemc.effects.ConditionalEffectsPlugin;
+import fun.sunrisemc.effects.file.ConfigFile;
 
 public class ConditionalEffect {
 
@@ -75,7 +76,7 @@ public class ConditionalEffect {
         // Load Settings
 
         if (config.contains(id + ".conditions-check-interval-ticks")) {
-            this.checkIntervalTicks = getIntClamped(config, id + ".conditions-check-interval-ticks", 0, Integer.MAX_VALUE);
+            this.checkIntervalTicks = ConfigFile.getIntClamped(config, id + ".conditions-check-interval-ticks", 0, Integer.MAX_VALUE);
         }
 
         for (String effectString : config.getStringList(id + ".effects")) {
@@ -217,10 +218,5 @@ public class ConditionalEffect {
 
     public void applyEffects(@NonNull Player player) {
         player.addPotionEffects(effects);
-    }
-
-    private int getIntClamped(@NonNull YamlConfiguration config, @NonNull String path, int min, int max) {
-        int value = config.getInt(path);
-        return Math.clamp(value, min, max);
     }
 }
