@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.bukkit.Location;
 import org.bukkit.World;
+import org.bukkit.block.Block;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
@@ -144,7 +145,7 @@ public class ConditionalEffect {
         }
 
         for (String biomeName : config.getStringList(id + ".conditions.biomes")) {
-            this.biomes.add(biomeName);
+            this.biomes.add(normalizeBiomeName(biomeName));
         }
 
         if (config.contains(id + ".conditions.min-x")) {
@@ -181,6 +182,7 @@ public class ConditionalEffect {
     public boolean conditionsMet(@NonNull Player player) {
         Location location = player.getLocation();
         World world = location.getWorld();
+        Block block = location.getBlock();
 
         if (!worlds.isEmpty() && !worlds.contains(world.getName())) {
             return false;
@@ -190,7 +192,7 @@ public class ConditionalEffect {
             return false;
         }
 
-        if (!biomes.isEmpty() && !biomes.contains(location.getBlock().getBiome().name())) {
+        if (!biomes.isEmpty() && !biomes.contains(normalizeBiomeName(block.getBiome().name()))) {
             return false;
         }
 
@@ -218,5 +220,9 @@ public class ConditionalEffect {
 
     public void applyEffects(@NonNull Player player) {
         player.addPotionEffects(effects);
+    }
+
+    private String normalizeBiomeName(@NonNull String biomeName) {
+        return biomeName.trim().toUpperCase().replace(" ", "_").replace("-", "_");
     }
 }
