@@ -42,7 +42,7 @@ This example effect will provide speed and jump boost effects in the hub world.
 - **biomes:** Biomes that the effects will be applied in.
 - **gamemodes:** Gamemodes that the effects will be applied in.
 - **has-permission:** Effects will only be applied to players with all of these permissions.
-- **lacks-permission:** Effects will only be applied to players who don't have any of these permissions.
+- **missing-permission:** Effects will only be applied to players who don't have any of these permissions.
 - **min-x:** Minimum X coordinate where the effects will be applied.
 - **max-x:** Maximum X coordinate where the effects will be applied.
 - **min-y:** Minimum Y coordinate where the effects will be applied.

@@ -30,7 +30,7 @@ public class ConditionalEffect {
         "biomes",
         "gamemodes",
         "has-permissions",
-        "lacks-permissions",
+        "missing-permissions",
         "min-x",
         "min-y",
         "min-z",
@@ -57,7 +57,7 @@ public class ConditionalEffect {
     private HashSet<String> gamemodes = new HashSet<>();
 
     private ArrayList<String> hasPermissions = new ArrayList<>();
-    private ArrayList<String> lacksPermissions = new ArrayList<>();
+    private ArrayList<String> missingPermissions = new ArrayList<>();
 
     private Integer minX = null;
     private Integer maxX = null;
@@ -172,8 +172,8 @@ public class ConditionalEffect {
             this.hasPermissions.add(permission);
         }
 
-        for (String permission : config.getStringList(id + ".conditions.lacks-permissions")) {
-            this.lacksPermissions.add(permission);
+        for (String permission : config.getStringList(id + ".conditions.missing-permissions")) {
+            this.missingPermissions.add(permission);
         }
 
         if (config.contains(id + ".conditions.min-x")) {
@@ -241,7 +241,7 @@ public class ConditionalEffect {
             }
         }
 
-        for (String permission : lacksPermissions) {
+        for (String permission : missingPermissions) {
             if (player.hasPermission(permission)) {
                 return false;
             }
