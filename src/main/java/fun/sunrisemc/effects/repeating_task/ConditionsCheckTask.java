@@ -12,7 +12,7 @@ import fun.sunrisemc.effects.conditional_effect.ConditionalEffectManager;
 
 public class ConditionsCheckTask {
 
-    private static final int INTERVAL_TICKS = 1 ; // 1 tick
+    private static final int INTERVAL_TICKS = 1 ;
 
     private static int id = -1;
 
@@ -27,7 +27,19 @@ public class ConditionsCheckTask {
                 tickCount = 0;
             }
             tickCount++;
-            run();
+
+            List<ConditionalEffect> conditionalEffects = ConditionalEffectManager.getAll();
+            Collection<? extends Player> players = Bukkit.getOnlinePlayers();
+            for (ConditionalEffect conditionalEffect : conditionalEffects) {
+                if (!conditionalEffect.checkInterval(tickCount)) {
+                    continue;
+                }
+                for (Player player : players) {
+                    if (conditionalEffect.conditionsMet(player)) {
+                        conditionalEffect.applyEffects(player);
+                    }
+                }
+            }
         }, INTERVAL_TICKS, INTERVAL_TICKS).getTaskId();
     }
 
@@ -37,20 +49,5 @@ public class ConditionsCheckTask {
         }
         Bukkit.getScheduler().cancelTask(id);
         id = -1;
-    }
-
-    private static void run() {
-        List<ConditionalEffect> conditionalEffects = ConditionalEffectManager.getAll();
-        Collection<? extends Player> players = Bukkit.getOnlinePlayers();
-        for (ConditionalEffect conditionalEffect : conditionalEffects) {
-            if (!conditionalEffect.checkInterval(tickCount)) {
-                continue;
-            }
-            for (Player player : players) {
-                if (conditionalEffect.conditionsMet(player)) {
-                    conditionalEffect.applyEffects(player);
-                }
-            }
-        }
     }
 }

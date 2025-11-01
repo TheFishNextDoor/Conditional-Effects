@@ -65,11 +65,14 @@ public class ConditionalEffects implements CommandExecutor, TabCompleter {
         }
 
         String subCommand = args[0].toLowerCase();
+
+        // Reload Command
         if (sender.hasPermission(Permissions.RELOAD_PERMISSION) && subCommand.equals("reload")) {
             ConditionalEffectsPlugin.loadConfigs();
             sender.sendMessage(ChatColor.LIGHT_PURPLE + "Configuration reloaded.");
             return true;
         }
+        // Give Command
         else if (subCommand.equals("give") && sender.hasPermission(Permissions.GIVE_PERMISSION)) {
             if (args.length < 3) {
                 sender.sendMessage(ChatColor.RED + "Usage: /ce give <player> <effectId>");
@@ -96,9 +99,10 @@ public class ConditionalEffects implements CommandExecutor, TabCompleter {
             sender.sendMessage(ChatColor.GREEN + "Applied conditional effect '" + effectId + "' to player '" + playerName + "'.");
             return true;
         }
+        // Check Command
         else if (subCommand.equals("check") && sender.hasPermission(Permissions.CHECK_PERMISSION)) {
             if (args.length < 3) {
-                sender.sendMessage(ChatColor.RED + "Usage: /ce give <player> <effectId>");
+                sender.sendMessage(ChatColor.RED + "Usage: /ce check <player> <effectId>");
                 return true;
             }
 

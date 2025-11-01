@@ -13,7 +13,7 @@ import fun.sunrisemc.effects.file.ConfigFile;
 
 public class ConditionalEffectManager {
 
-    private static List<ConditionalEffect> conditionalEffects = new ArrayList<>();
+    private static List<ConditionalEffect> conditionalEffectsList = new ArrayList<>();
     private static HashMap<String, ConditionalEffect> conditionalEffectsMap = new HashMap<>();
 
     public static Optional<ConditionalEffect> get(String id) {
@@ -21,7 +21,7 @@ public class ConditionalEffectManager {
     }
     
     public static List<ConditionalEffect> getAll() {
-        return new ArrayList<>(conditionalEffects);
+        return new ArrayList<>(conditionalEffectsList);
     }
 
     public static List<String> getIds() {
@@ -38,8 +38,8 @@ public class ConditionalEffectManager {
             conditionalEffectsMap.put(id, conditionalEffect);
         }
 
-        conditionalEffects = Collections.unmodifiableList(tempConditionalEffects);
+        conditionalEffectsList = Collections.unmodifiableList(tempConditionalEffects);
 
-        ConditionalEffectsPlugin.logInfo("Loaded " + conditionalEffects.size() + " conditional effects.");
+        ConditionalEffectsPlugin.logInfo("Loaded " + conditionalEffectsList.size() + " conditional effects.");
     }
 }

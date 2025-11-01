@@ -38,9 +38,13 @@ public class ConditionalEffect {
 
     private final String id;
 
+    // Behavior Settings
+
     private int checkIntervalTicks = 40;
 
     private ArrayList<PotionEffect> effects = new ArrayList<>();
+
+    // Condition Settings
 
     private HashSet<String> worlds = new HashSet<>();
     private HashSet<String> environments = new HashSet<>();
