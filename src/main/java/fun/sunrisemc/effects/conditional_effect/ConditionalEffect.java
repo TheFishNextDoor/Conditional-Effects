@@ -28,12 +28,17 @@ public class ConditionalEffect {
         "worlds",
         "environments",
         "biomes",
+        "gamemodes",
+        "has-permissions",
+        "lacks-permissions",
         "min-x",
         "min-y",
         "min-z",
         "max-x",
         "max-y",
-        "max-z"
+        "max-z",
+        "in-water",
+        "not-in-water"
     );
 
     private final String id;
@@ -49,6 +54,10 @@ public class ConditionalEffect {
     private HashSet<String> worlds = new HashSet<>();
     private HashSet<String> environments = new HashSet<>();
     private HashSet<String> biomes = new HashSet<>();
+    private HashSet<String> gamemodes = new HashSet<>();
+
+    private ArrayList<String> hasPermissions = new ArrayList<>();
+    private ArrayList<String> lacksPermissions = new ArrayList<>();
 
     private Integer minX = null;
     private Integer maxX = null;
@@ -56,6 +65,9 @@ public class ConditionalEffect {
     private Integer maxY = null;
     private Integer minZ = null;
     private Integer maxZ = null;
+
+    private boolean inWater = false;
+    private boolean notInWater = false;
 
     ConditionalEffect(@NonNull YamlConfiguration config, @NonNull String id) {
         this.id = id;
@@ -145,11 +157,23 @@ public class ConditionalEffect {
         }
 
         for (String environmentName : config.getStringList(id + ".conditions.environments")) {
-            this.environments.add(environmentName);
+            this.environments.add(normalizeName(environmentName));
         }
 
         for (String biomeName : config.getStringList(id + ".conditions.biomes")) {
-            this.biomes.add(normalizeBiomeName(biomeName));
+            this.biomes.add(normalizeName(biomeName));
+        }
+
+        for (String gamemode : config.getStringList(id + ".conditions.gamemodes")) {
+            this.gamemodes.add(normalizeName(gamemode));
+        }
+
+        for (String permission : config.getStringList(id + ".conditions.has-permissions")) {
+            this.hasPermissions.add(permission);
+        }
+
+        for (String permission : config.getStringList(id + ".conditions.lacks-permissions")) {
+            this.lacksPermissions.add(permission);
         }
 
         if (config.contains(id + ".conditions.min-x")) {
@@ -169,6 +193,13 @@ public class ConditionalEffect {
         }
         if (config.contains(id + ".conditions.max-z")) {
             this.maxZ = config.getInt(id + ".conditions.max-z");
+        }
+
+        if (config.contains(id + ".conditions.in-water")) {
+            this.inWater = config.getBoolean(id + ".conditions.in-water");
+        }
+        if (config.contains(id + ".conditions.not-in-water")) {
+            this.notInWater = config.getBoolean(id + ".conditions.not-in-water");
         }
     }
 
@@ -192,12 +223,28 @@ public class ConditionalEffect {
             return false;
         }
 
-        if (!environments.isEmpty() && !environments.contains(world.getEnvironment().name())) {
+        if (!environments.isEmpty() && !environments.contains(normalizeName(world.getEnvironment().name()))) {
             return false;
         }
 
-        if (!biomes.isEmpty() && !biomes.contains(normalizeBiomeName(block.getBiome().name()))) {
+        if (!biomes.isEmpty() && !biomes.contains(normalizeName(block.getBiome().name()))) {
             return false;
+        }
+
+        if (!gamemodes.isEmpty() && !gamemodes.contains(normalizeName(player.getGameMode().name()))) {
+            return false;
+        }
+
+        for (String permission : hasPermissions) {
+            if (!player.hasPermission(permission)) {
+                return false;
+            }
+        }
+
+        for (String permission : lacksPermissions) {
+            if (player.hasPermission(permission)) {
+                return false;
+            }
         }
 
         if (minX != null && location.getBlockX() < minX) {
@@ -219,6 +266,13 @@ public class ConditionalEffect {
             return false;
         }
 
+        if (inWater && player.isInWater()) {
+            return false;
+        }
+        if (notInWater && !player.isInWater()) {
+            return false;
+        }
+
         return true;
     }
 
@@ -226,7 +280,7 @@ public class ConditionalEffect {
         player.addPotionEffects(effects);
     }
 
-    private String normalizeBiomeName(@NonNull String biomeName) {
+    private String normalizeName(@NonNull String biomeName) {
         return biomeName.trim().toUpperCase().replace(" ", "_").replace("-", "_");
     }
 }
