@@ -29,16 +29,13 @@ public class ConditionalEffectManager {
     }
 
     public static void loadConfig() {
-        ArrayList<ConditionalEffect> tempConditionalEffects = new ArrayList<>();
-
         YamlConfiguration config = ConfigFile.get("effects", false);
         for (String id : config.getKeys(false)) {
             ConditionalEffect conditionalEffect = new ConditionalEffect(config, id);
-            tempConditionalEffects.add(conditionalEffect);
             conditionalEffectsMap.put(id, conditionalEffect);
         }
 
-        conditionalEffectsList = Collections.unmodifiableList(tempConditionalEffects);
+        conditionalEffectsList = Collections.unmodifiableList(new ArrayList<>(conditionalEffectsMap.values()));
 
         ConditionalEffectsPlugin.logInfo("Loaded " + conditionalEffectsList.size() + " conditional effects.");
     }
