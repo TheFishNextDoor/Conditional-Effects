@@ -13,6 +13,11 @@ Apply potion effects to players based on pre-defined conditions.
 - **/conditionaleffects give &lt;player&gt; &lt;effectId&gt;:** Give a conditional effect to a player
 - **/conditionaleffects check &lt;player&gt; &lt;effectId&gt;:** Manually check a conditional effect on a player
 
+## Permissions:
+- **conditionaleffects.reload:** Allows the user to reload the plugin
+- **conditonaleffects.give:** Allows the user to give conditional effects to players
+- **conditionaleffects.check:** Allows the user to manually check conditional effects on players
+
 ## Effects
 ```yaml
 hub-effects:
