@@ -40,9 +40,14 @@ This example effect will provide speed and jump boost effects in the hub world.
 - **worlds:** Worlds that the effects will be applied in.
 - **environments:** Environments that the effects will be applied in (e.g. NETHER, OVERWORLD).
 - **biomes:** Biomes that the effects will be applied in.
+- **gamemodes:** Gamemodes that the effects will be applied in.
+- **has-permission:** Effects will only be applied to players with all of these permissions.
+- **lacks-permission:** Effects will only be applied to players who don't have any of these permissions.
 - **min-x:** Minimum X coordinate where the effects will be applied.
 - **max-x:** Maximum X coordinate where the effects will be applied.
 - **min-y:** Minimum Y coordinate where the effects will be applied.
 - **max-y:** Maximum Y coordinate where the effects will be applied.
 - **min-z:** Minimum Z coordinate where the effects will be applied.
 - **max-z:** Maximum Z coordinate where the effects will be applied.
+- **in-water:** Effects will only be applied to player in water.
+- **not-in-water:** Effects will only be applied to players not in water.
