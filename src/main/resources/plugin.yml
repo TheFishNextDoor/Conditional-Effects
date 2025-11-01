@@ -1,6 +1,6 @@
 name: ConditionalEffects
 main: fun.sunrisemc.effects.ConditionalEffectsPlugin
-version: 1.0.1
+version: 1.0.2
 api-version: 1.18
 author: TheFishNextDoor
 description: This is a simple Bukkit Plugin
