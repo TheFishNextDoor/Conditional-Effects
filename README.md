@@ -1,4 +1,4 @@
-# Conditional Effects Plugin
+# Conditional Effects
 Apply potion effects to players based on pre-defined conditions.
 
 ## Setup
