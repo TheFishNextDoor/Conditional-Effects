@@ -2,10 +2,10 @@
 Apply potion effects to players based on pre-defined conditions.
 
 ## Setup
-- Add Conditional Effects jar into your plugins folder.
-- Restart your server.
-- Edit effects.yml to your liking.
-- Type /conditionaleffects reload.
+1. Add Conditional Effects jar into your plugins folder.
+2. Restart your server.
+3. Edit effects.yml to your liking.
+4. Type /conditionaleffects reload.
 
 ## Commands:
 - **/conditionaleffects help:** Show the help message
