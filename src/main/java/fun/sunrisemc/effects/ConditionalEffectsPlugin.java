@@ -4,7 +4,9 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.checkerframework.checker.nullness.qual.NonNull;
+
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import fun.sunrisemc.effects.command.ConditionalEffectsCommand;
 import fun.sunrisemc.effects.conditional_effect.ConditionalEffectManager;
@@ -12,7 +14,7 @@ import fun.sunrisemc.effects.repeating_task.ConditionsCheckTask;
 
 public class ConditionalEffectsPlugin extends JavaPlugin {
 
-    private static ConditionalEffectsPlugin instance;
+    private static @Nullable ConditionalEffectsPlugin instance;
 
     @Override
     public void onEnable() {
@@ -37,23 +39,29 @@ public class ConditionalEffectsPlugin extends JavaPlugin {
         ConditionalEffectManager.loadConfig();
     }
 
+    @NotNull
     public static ConditionalEffectsPlugin getInstance() {
-        return instance;
+        if (instance != null) {
+            return instance;
+        }
+        else {
+            throw new IllegalStateException("Plugin instance is not initialized.");
+        }
     }
 
-    public static void logInfo(@NonNull String message) {
+    public static void logInfo(@NotNull String message) {
         getInstance().getLogger().info(message);
     }
 
-    public static void logWarning(@NonNull String message) {
+    public static void logWarning(@NotNull String message) {
         getInstance().getLogger().warning(message);
     }
 
-    public static void logSevere(@NonNull String message) {
+    public static void logSevere(@NotNull String message) {
         getInstance().getLogger().severe(message);
     }
 
-    private boolean registerCommand(@NonNull String commandName, @NonNull CommandExecutor commandExecutor) {
+    private boolean registerCommand(@NotNull String commandName, @NotNull CommandExecutor commandExecutor) {
         PluginCommand command = getCommand(commandName);
         if (command == null) {
             logSevere("Command '" + commandName + "' not found in plugin.yml.");
