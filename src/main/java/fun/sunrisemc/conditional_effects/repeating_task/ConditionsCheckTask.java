@@ -1,4 +1,4 @@
-package fun.sunrisemc.effects.repeating_task;
+package fun.sunrisemc.conditional_effects.repeating_task;
 
 import java.util.Collection;
 import java.util.List;
@@ -6,9 +6,9 @@ import java.util.List;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-import fun.sunrisemc.effects.ConditionalEffectsPlugin;
-import fun.sunrisemc.effects.conditional_effect.ConditionalEffect;
-import fun.sunrisemc.effects.conditional_effect.ConditionalEffectManager;
+import fun.sunrisemc.conditional_effects.ConditionalEffectsPlugin;
+import fun.sunrisemc.conditional_effects.conditional_effect.ConditionalEffect;
+import fun.sunrisemc.conditional_effects.conditional_effect.ConditionalEffectManager;
 
 public class ConditionsCheckTask {
 

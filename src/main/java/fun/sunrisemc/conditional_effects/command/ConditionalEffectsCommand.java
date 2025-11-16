@@ -1,4 +1,4 @@
-package fun.sunrisemc.effects.command;
+package fun.sunrisemc.conditional_effects.command;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,10 +15,10 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import fun.sunrisemc.effects.ConditionalEffectsPlugin;
-import fun.sunrisemc.effects.conditional_effect.ConditionalEffect;
-import fun.sunrisemc.effects.conditional_effect.ConditionalEffectManager;
-import fun.sunrisemc.effects.permission.Permissions;
+import fun.sunrisemc.conditional_effects.ConditionalEffectsPlugin;
+import fun.sunrisemc.conditional_effects.conditional_effect.ConditionalEffect;
+import fun.sunrisemc.conditional_effects.conditional_effect.ConditionalEffectManager;
+import fun.sunrisemc.conditional_effects.permission.Permissions;
 
 public class ConditionalEffectsCommand implements CommandExecutor, TabCompleter {
 

@@ -1,4 +1,4 @@
-package fun.sunrisemc.effects.permission;
+package fun.sunrisemc.conditional_effects.permission;
 
 public class Permissions {
 

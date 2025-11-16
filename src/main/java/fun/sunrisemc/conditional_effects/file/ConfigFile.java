@@ -1,4 +1,4 @@
-package fun.sunrisemc.effects.file;
+package fun.sunrisemc.conditional_effects.file;
 
 import java.io.File;
 import java.io.InputStream;
@@ -8,7 +8,7 @@ import java.nio.charset.StandardCharsets;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.jetbrains.annotations.NotNull;
 
-import fun.sunrisemc.effects.ConditionalEffectsPlugin;
+import fun.sunrisemc.conditional_effects.ConditionalEffectsPlugin;
 
 public class ConfigFile {
     

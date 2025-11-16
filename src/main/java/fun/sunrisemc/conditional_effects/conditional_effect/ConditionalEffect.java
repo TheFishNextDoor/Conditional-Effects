@@ -1,4 +1,4 @@
-package fun.sunrisemc.effects.conditional_effect;
+package fun.sunrisemc.conditional_effects.conditional_effect;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -16,8 +16,8 @@ import org.bukkit.potion.PotionEffectType;
 
 import org.jetbrains.annotations.NotNull;
 
-import fun.sunrisemc.effects.utils.ConfigUtils;
-import fun.sunrisemc.effects.ConditionalEffectsPlugin;
+import fun.sunrisemc.conditional_effects.ConditionalEffectsPlugin;
+import fun.sunrisemc.conditional_effects.utils.ConfigUtils;
 
 public class ConditionalEffect {
 

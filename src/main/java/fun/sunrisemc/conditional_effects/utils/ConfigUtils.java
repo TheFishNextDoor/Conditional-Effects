@@ -1,4 +1,4 @@
-package fun.sunrisemc.effects.utils;
+package fun.sunrisemc.conditional_effects.utils;
 
 import java.util.HashSet;
 import java.util.Optional;

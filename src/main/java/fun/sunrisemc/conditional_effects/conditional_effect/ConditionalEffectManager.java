@@ -1,4 +1,4 @@
-package fun.sunrisemc.effects.conditional_effect;
+package fun.sunrisemc.conditional_effects.conditional_effect;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -10,8 +10,8 @@ import org.bukkit.configuration.file.YamlConfiguration;
 
 import org.jetbrains.annotations.NotNull;
 
-import fun.sunrisemc.effects.ConditionalEffectsPlugin;
-import fun.sunrisemc.effects.file.ConfigFile;
+import fun.sunrisemc.conditional_effects.ConditionalEffectsPlugin;
+import fun.sunrisemc.conditional_effects.file.ConfigFile;
 
 public class ConditionalEffectManager {
 

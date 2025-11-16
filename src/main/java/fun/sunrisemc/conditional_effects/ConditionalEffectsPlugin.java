@@ -1,4 +1,4 @@
-package fun.sunrisemc.effects;
+package fun.sunrisemc.conditional_effects;
 
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.PluginCommand;
@@ -8,9 +8,9 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import fun.sunrisemc.effects.command.ConditionalEffectsCommand;
-import fun.sunrisemc.effects.conditional_effect.ConditionalEffectManager;
-import fun.sunrisemc.effects.repeating_task.ConditionsCheckTask;
+import fun.sunrisemc.conditional_effects.command.ConditionalEffectsCommand;
+import fun.sunrisemc.conditional_effects.conditional_effect.ConditionalEffectManager;
+import fun.sunrisemc.conditional_effects.repeating_task.ConditionsCheckTask;
 
 public class ConditionalEffectsPlugin extends JavaPlugin {
 
