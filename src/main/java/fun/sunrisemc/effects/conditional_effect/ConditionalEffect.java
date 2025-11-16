@@ -16,8 +16,8 @@ import org.bukkit.potion.PotionEffectType;
 
 import org.jetbrains.annotations.NotNull;
 
+import fun.sunrisemc.effects.utils.ConfigUtils;
 import fun.sunrisemc.effects.ConditionalEffectsPlugin;
-import fun.sunrisemc.effects.file.ConfigFile;
 
 public class ConditionalEffect {
 
@@ -102,7 +102,7 @@ public class ConditionalEffect {
         // Load Settings
 
         if (config.contains(id + ".conditions-check-interval-ticks")) {
-            this.checkIntervalTicks = ConfigFile.getIntClamped(config, id + ".conditions-check-interval-ticks", 0, Integer.MAX_VALUE);
+            this.checkIntervalTicks = ConfigUtils.getIntClamped(config, id + ".conditions-check-interval-ticks", 0, Integer.MAX_VALUE);
         }
 
         for (String effectString : config.getStringList(id + ".effects")) {
