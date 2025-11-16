@@ -164,6 +164,7 @@ public class ConditionalEffectsCommand implements CommandExecutor, TabCompleter 
         if (sender.hasPermission(Permissions.CHECK_PERMISSION)) {
             sender.sendMessage(ChatColor.DARK_PURPLE + "/conditionaleffects check <player> <effectId> " + ChatColor.WHITE + "Manually check a conditional effect on a player");
         }
+        sender.sendMessage(ChatColor.DARK_PURPLE + "Note: Commands you do not have permission for will not be shown.");
     }
 
     @NotNull
