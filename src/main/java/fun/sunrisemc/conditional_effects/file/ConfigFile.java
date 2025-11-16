@@ -14,15 +14,12 @@ public class ConfigFile {
     
     @NotNull
     public static YamlConfiguration get(@NotNull String name, boolean copyMissingDefaults) {
-        ConditionalEffectsPlugin.logInfo("Loading configuration for " + name + ".yml.");
-
         File configFile = new File(getFolder(), name + ".yml");
 
         // Create the file if it does not exist using the default resource
         if (!configFile.exists()) {
             try {
                 ConditionalEffectsPlugin.getInstance().saveResource(name + ".yml", false);
-                ConditionalEffectsPlugin.logInfo("Created configuration file for " + name + ".yml.");
             } 
             catch (Exception e) {
                 ConditionalEffectsPlugin.logWarning("Failed to create configuration file for " + name + ".yml.");
@@ -68,12 +65,9 @@ public class ConfigFile {
     }
 
     public static boolean save(@NotNull String filename, @NotNull YamlConfiguration config) {
-        ConditionalEffectsPlugin.logInfo("Saving configuration for " + filename + ".yml.");
-
         File configFile = new File(getFolder(), filename + ".yml");
         try {
             config.save(configFile);
-            ConditionalEffectsPlugin.logInfo("Configuration for " + filename + ".yml saved successfully.");
             return true;
         } 
         catch (Exception e) {
@@ -87,7 +81,6 @@ public class ConfigFile {
     public static File getFolder() {
         File pluginFolder = ConditionalEffectsPlugin.getInstance().getDataFolder();
         if (!pluginFolder.exists()) {
-            ConditionalEffectsPlugin.logInfo("Creating plugin folder.");
             pluginFolder.mkdirs();
         }
         return pluginFolder;
