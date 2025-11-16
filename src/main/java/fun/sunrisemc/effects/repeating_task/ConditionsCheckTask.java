@@ -35,6 +35,9 @@ public class ConditionsCheckTask {
                     continue;
                 }
                 for (Player player : players) {
+                    if (player == null || !player.isOnline()) {
+                        continue;
+                    }
                     if (conditionalEffect.conditionsMet(player)) {
                         conditionalEffect.applyEffects(player);
                     }
