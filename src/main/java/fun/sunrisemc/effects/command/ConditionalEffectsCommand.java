@@ -25,6 +25,7 @@ public class ConditionalEffectsCommand implements CommandExecutor, TabCompleter 
     @Override
     @Nullable
     public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String @NotNull [] args) {
+        // /conditionaleffects <subcommand>
         if (args.length == 1) {
             ArrayList<String> completions = new ArrayList<>();
             completions.add("help");
@@ -41,18 +42,24 @@ public class ConditionalEffectsCommand implements CommandExecutor, TabCompleter 
         }
         else if (args.length == 2) {
             String subCommand = args[0].toLowerCase();
+
+            // /conditionaleffects give <player>
             if (subCommand.equals("give") && sender.hasPermission(Permissions.GIVE_PERMISSION)) {
                 return getOnlinePlayerNames();
-            } 
+            }
+            // /conditionaleffects check <player>
             else if (subCommand.equals("check") && sender.hasPermission(Permissions.CHECK_PERMISSION)) {
                 return getOnlinePlayerNames();
             }
         }
         else if (args.length == 3) {
             String subCommand = args[0].toLowerCase();
+
+            // /conditionaleffects give <player> <effectId>
             if (subCommand.equals("give") && sender.hasPermission(Permissions.GIVE_PERMISSION)) {
                 return ConditionalEffectManager.getIds();
             }
+            // /conditionaleffects check <player> <effectId>
             else if (subCommand.equals("check") && sender.hasPermission(Permissions.CHECK_PERMISSION)) {
                 return ConditionalEffectManager.getIds();
             }
@@ -77,26 +84,29 @@ public class ConditionalEffectsCommand implements CommandExecutor, TabCompleter 
         }
         // Give Command
         else if (subCommand.equals("give") && sender.hasPermission(Permissions.GIVE_PERMISSION)) {
+            // Ensure the user provided enough arguments
             if (args.length < 3) {
                 sender.sendMessage(ChatColor.RED + "Usage: /ce give <player> <effectId>");
                 return true;
             }
 
+            // Get player
             String playerName = args[1];
-            String effectId = args[2];
-
             Player player = Bukkit.getPlayer(playerName);
             if (player == null) {
                 sender.sendMessage(ChatColor.RED + "Player '" + playerName + "' not found.");
                 return true;
             }
 
+            // Get conditional effect
+            String effectId = args[2];
             Optional<ConditionalEffect> conditionalEffectOptional = ConditionalEffectManager.get(effectId);
             if (!conditionalEffectOptional.isPresent()) {
                 sender.sendMessage(ChatColor.RED + "Conditional effect with ID '" + effectId + "' not found.");
                 return true;
             }
 
+            // Apply conditional effect and notify sender
             ConditionalEffect conditionalEffect = conditionalEffectOptional.get();
             conditionalEffect.applyEffects(player);
             sender.sendMessage(ChatColor.GREEN + "Applied conditional effect '" + effectId + "' to player '" + playerName + "'.");
@@ -104,31 +114,35 @@ public class ConditionalEffectsCommand implements CommandExecutor, TabCompleter 
         }
         // Check Command
         else if (subCommand.equals("check") && sender.hasPermission(Permissions.CHECK_PERMISSION)) {
+            // Ensure the user provided enough arguments
             if (args.length < 3) {
                 sender.sendMessage(ChatColor.RED + "Usage: /ce check <player> <effectId>");
                 return true;
             }
 
+            // Get player
             String playerName = args[1];
-            String effectId = args[2];
-
             Player player = Bukkit.getPlayer(playerName);
             if (player == null) {
                 sender.sendMessage(ChatColor.RED + "Player '" + playerName + "' not found.");
                 return true;
             }
 
+            // Get conditional effect
+            String effectId = args[2];
             Optional<ConditionalEffect> conditionalEffectOptional = ConditionalEffectManager.get(effectId);
             if (!conditionalEffectOptional.isPresent()) {
                 sender.sendMessage(ChatColor.RED + "Conditional effect with ID '" + effectId + "' not found.");
                 return true;
             }
 
+            // Check conditions and notify sender
             ConditionalEffect conditionalEffect = conditionalEffectOptional.get();
             if (conditionalEffect.conditionsMet(player)) {
                 conditionalEffect.applyEffects(player);
                 sender.sendMessage(ChatColor.GREEN + "Applied conditional effect '" + effectId + "' to player '" + playerName + "'.");
-            } else {
+            } 
+            else {
                 sender.sendMessage(ChatColor.RED + "Player '" + playerName + "' does not meet the conditions for effect '" + effectId + "'.");
             }
             return true;
