@@ -3,28 +3,31 @@ package fun.sunrisemc.effects.conditional_effect;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.block.Block;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-import org.checkerframework.checker.nullness.qual.NonNull;
+
+import org.jetbrains.annotations.NotNull;
 
 import fun.sunrisemc.effects.ConditionalEffectsPlugin;
 import fun.sunrisemc.effects.file.ConfigFile;
 
 public class ConditionalEffect {
 
-    private final List<String> SETTINGS = List.of(
+    private final @NotNull List<String> SETTINGS = List.of(
         "conditions-check-interval-ticks",
         "effects",
         "conditions"
     );
 
-    private final List<String> CONDITIONS = List.of(
+    private final @NotNull List<String> CONDITIONS = List.of(
         "worlds",
         "environments",
         "biomes",
@@ -41,51 +44,57 @@ public class ConditionalEffect {
         "not-in-water"
     );
 
-    private final String id;
+    private final @NotNull String id;
 
     // Behavior Settings
 
     private int checkIntervalTicks = 40;
 
-    private ArrayList<PotionEffect> effects = new ArrayList<>();
+    private @NotNull ArrayList<PotionEffect> effects = new ArrayList<>();
 
     // Condition Settings
 
-    private HashSet<String> worlds = new HashSet<>();
-    private HashSet<String> environments = new HashSet<>();
-    private HashSet<String> biomes = new HashSet<>();
-    private HashSet<String> gamemodes = new HashSet<>();
+    private @NotNull HashSet<String> worlds = new HashSet<>();
+    private @NotNull HashSet<String> environments = new HashSet<>();
+    private @NotNull HashSet<String> biomes = new HashSet<>();
+    private @NotNull HashSet<String> gamemodes = new HashSet<>();
 
-    private ArrayList<String> hasPermissions = new ArrayList<>();
-    private ArrayList<String> missingPermissions = new ArrayList<>();
+    private @NotNull ArrayList<String> hasPermissions = new ArrayList<>();
+    private @NotNull ArrayList<String> missingPermissions = new ArrayList<>();
 
-    private Integer minX = null;
-    private Integer maxX = null;
-    private Integer minY = null;
-    private Integer maxY = null;
-    private Integer minZ = null;
-    private Integer maxZ = null;
+    private Optional<Integer> minX = Optional.empty();
+    private Optional<Integer> maxX = Optional.empty();
+    private Optional<Integer> minY = Optional.empty();
+    private Optional<Integer> maxY = Optional.empty();
+    private Optional<Integer> minZ = Optional.empty();
+    private Optional<Integer> maxZ = Optional.empty();
 
     private boolean inWater = false;
     private boolean notInWater = false;
 
-    ConditionalEffect(@NonNull YamlConfiguration config, @NonNull String id) {
+    ConditionalEffect(@NotNull YamlConfiguration config, @NotNull String id) {
         this.id = id;
 
         // Settings Checks
 
-        for (String setting : config.getConfigurationSection(id).getKeys(false)) {
-            if (!SETTINGS.contains(setting)) {
-                ConditionalEffectsPlugin.logWarning("Invalid setting for effect " + id + ": " + setting + ".");
-                ConditionalEffectsPlugin.logWarning("Valid settings are: " + String.join(", ", SETTINGS) + ".");
+        ConfigurationSection settingsConfig = config.getConfigurationSection(id);
+        if (settingsConfig != null) {
+            for (String setting : settingsConfig.getKeys(false)) {
+                if (!SETTINGS.contains(setting)) {
+                    ConditionalEffectsPlugin.logWarning("Invalid setting for effect " + id + ": " + setting + ".");
+                    ConditionalEffectsPlugin.logWarning("Valid settings are: " + String.join(", ", SETTINGS) + ".");
+                }
             }
         }
 
         if (config.contains(id + ".conditions")) {
-            for (String condition : config.getConfigurationSection(id + ".conditions").getKeys(false)) {
-                if (!CONDITIONS.contains(condition)) {
-                    ConditionalEffectsPlugin.logWarning("Invalid condition for effect " + id + ": " + condition + ".");
-                    ConditionalEffectsPlugin.logWarning("Valid conditions are: " + String.join(", ", CONDITIONS) + ".");
+            ConfigurationSection conditionsConfig = config.getConfigurationSection(id + ".conditions");
+            if (conditionsConfig != null) {
+                for (String condition : conditionsConfig.getKeys(false)) {
+                    if (!CONDITIONS.contains(condition)) {
+                        ConditionalEffectsPlugin.logWarning("Invalid condition for effect " + id + ": " + condition + ".");
+                        ConditionalEffectsPlugin.logWarning("Valid conditions are: " + String.join(", ", CONDITIONS) + ".");
+                    }
                 }
             }
         }
@@ -177,22 +186,22 @@ public class ConditionalEffect {
         }
 
         if (config.contains(id + ".conditions.min-x")) {
-            this.minX = config.getInt(id + ".conditions.min-x");
+            this.minX = Optional.of(config.getInt(id + ".conditions.min-x"));
         }
         if (config.contains(id + ".conditions.max-x")) {
-            this.maxX = config.getInt(id + ".conditions.max-x");
+            this.maxX = Optional.of(config.getInt(id + ".conditions.max-x"));
         }
         if (config.contains(id + ".conditions.min-y")) {
-            this.minY = config.getInt(id + ".conditions.min-y");
+            this.minY = Optional.of(config.getInt(id + ".conditions.min-y"));
         }
         if (config.contains(id + ".conditions.max-y")) {
-            this.maxY = config.getInt(id + ".conditions.max-y");
+            this.maxY = Optional.of(config.getInt(id + ".conditions.max-y"));
         }
         if (config.contains(id + ".conditions.min-z")) {
-            this.minZ = config.getInt(id + ".conditions.min-z");
+            this.minZ = Optional.of(config.getInt(id + ".conditions.min-z"));
         }
         if (config.contains(id + ".conditions.max-z")) {
-            this.maxZ = config.getInt(id + ".conditions.max-z");
+            this.maxZ = Optional.of(config.getInt(id + ".conditions.max-z"));
         }
 
         if (config.contains(id + ".conditions.in-water")) {
@@ -203,6 +212,7 @@ public class ConditionalEffect {
         }
     }
 
+    @NotNull
     public String getId() {
         return id;
     }
@@ -214,10 +224,14 @@ public class ConditionalEffect {
         return tickCount % checkIntervalTicks == 0;
     }
 
-    public boolean conditionsMet(@NonNull Player player) {
+    public boolean conditionsMet(@NotNull Player player) {
         Location location = player.getLocation();
         World world = location.getWorld();
         Block block = location.getBlock();
+
+        if (world == null) {
+            return false;
+        }
 
         if (!worlds.isEmpty() && !worlds.contains(world.getName())) {
             return false;
@@ -247,22 +261,22 @@ public class ConditionalEffect {
             }
         }
 
-        if (minX != null && location.getBlockX() < minX) {
+        if (minX.isPresent() && location.getBlockX() < minX.get()) {
             return false;
         }
-        if (minY != null && location.getBlockY() < minY) {
+        if (minY.isPresent() && location.getBlockY() < minY.get()) {
             return false;
         }
-        if (minZ != null && location.getBlockZ() < minZ) {
+        if (minZ.isPresent() && location.getBlockZ() < minZ.get()) {
             return false;
         }
-        if (maxX != null && location.getBlockX() > maxX) {
+        if (maxX.isPresent() && location.getBlockX() > maxX.get()) {
             return false;
         }
-        if (maxY != null && location.getBlockY() > maxY) {
+        if (maxY.isPresent() && location.getBlockY() > maxY.get()) {
             return false;
         }
-        if (maxZ != null && location.getBlockZ() > maxZ) {
+        if (maxZ.isPresent() && location.getBlockZ() > maxZ.get()) {
             return false;
         }
 
@@ -276,11 +290,12 @@ public class ConditionalEffect {
         return true;
     }
 
-    public void applyEffects(@NonNull Player player) {
+    public void applyEffects(@NotNull Player player) {
         player.addPotionEffects(effects);
     }
 
-    private String normalizeName(@NonNull String biomeName) {
+    @NotNull
+    private String normalizeName(@NotNull String biomeName) {
         return biomeName.trim().toUpperCase().replace(" ", "_").replace("-", "_");
     }
 }
