@@ -1,6 +1,6 @@
 name: ConditionalEffects
 main: fun.sunrisemc.conditional_effects.ConditionalEffectsPlugin
-version: 1.0.2
+version: 1.0.3
 api-version: 1.18
 author: TheFishNextDoor
 description: A plugin that gives players effects based on certain conditions
