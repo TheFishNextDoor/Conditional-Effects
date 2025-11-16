@@ -8,22 +8,26 @@ import java.util.Optional;
 
 import org.bukkit.configuration.file.YamlConfiguration;
 
+import org.jetbrains.annotations.NotNull;
+
 import fun.sunrisemc.effects.ConditionalEffectsPlugin;
 import fun.sunrisemc.effects.file.ConfigFile;
 
 public class ConditionalEffectManager {
 
-    private static List<ConditionalEffect> conditionalEffectsList = new ArrayList<>();
-    private static HashMap<String, ConditionalEffect> conditionalEffectsMap = new HashMap<>();
+    private static @NotNull List<ConditionalEffect> conditionalEffectsList = new ArrayList<>();
+    private static @NotNull HashMap<String, ConditionalEffect> conditionalEffectsMap = new HashMap<>();
 
-    public static Optional<ConditionalEffect> get(String id) {
+    public static Optional<ConditionalEffect> get(@NotNull String id) {
         return Optional.ofNullable(conditionalEffectsMap.get(id));
     }
     
+    @NotNull
     public static List<ConditionalEffect> getAll() {
         return new ArrayList<>(conditionalEffectsList);
     }
 
+    @NotNull
     public static List<String> getIds() {
         return new ArrayList<>(conditionalEffectsMap.keySet());
     }
