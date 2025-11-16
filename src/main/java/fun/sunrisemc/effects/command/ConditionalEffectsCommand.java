@@ -72,7 +72,7 @@ public class ConditionalEffectsCommand implements CommandExecutor, TabCompleter 
         // Reload Command
         if (sender.hasPermission(Permissions.RELOAD_PERMISSION) && subCommand.equals("reload")) {
             ConditionalEffectsPlugin.loadConfigs();
-            sender.sendMessage(ChatColor.LIGHT_PURPLE + "Configuration reloaded.");
+            sender.sendMessage(ChatColor.DARK_PURPLE + "Configuration reloaded.");
             return true;
         }
         // Give Command
@@ -139,16 +139,16 @@ public class ConditionalEffectsCommand implements CommandExecutor, TabCompleter 
     }
 
     private void helpMessage(@NotNull CommandSender sender) {
-        sender.sendMessage(ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "Conditional Effects Help");
-        sender.sendMessage(ChatColor.LIGHT_PURPLE + "/conditionaleffects help " + ChatColor.WHITE + "Show this help message");
+        sender.sendMessage(ChatColor.DARK_PURPLE + "" + ChatColor.BOLD + "Conditional Effects Help");
+        sender.sendMessage(ChatColor.DARK_PURPLE + "/conditionaleffects help " + ChatColor.WHITE + "Show this help message");
         if (sender.hasPermission(Permissions.RELOAD_PERMISSION)) {
-            sender.sendMessage(ChatColor.LIGHT_PURPLE + "/conditionaleffects reload " + ChatColor.WHITE + "Reload the plugin");
+            sender.sendMessage(ChatColor.DARK_PURPLE + "/conditionaleffects reload " + ChatColor.WHITE + "Reload the plugin");
         }
         if (sender.hasPermission(Permissions.GIVE_PERMISSION)) {
-            sender.sendMessage(ChatColor.LIGHT_PURPLE + "/conditionaleffects give <player> <effectId> " + ChatColor.WHITE + "Give a conditional effect to a player");
+            sender.sendMessage(ChatColor.DARK_PURPLE + "/conditionaleffects give <player> <effectId> " + ChatColor.WHITE + "Give a conditional effect to a player");
         }
         if (sender.hasPermission(Permissions.CHECK_PERMISSION)) {
-            sender.sendMessage(ChatColor.LIGHT_PURPLE + "/conditionaleffects check <player> <effectId> " + ChatColor.WHITE + "Manually check a conditional effect on a player");
+            sender.sendMessage(ChatColor.DARK_PURPLE + "/conditionaleffects check <player> <effectId> " + ChatColor.WHITE + "Manually check a conditional effect on a player");
         }
     }
 
