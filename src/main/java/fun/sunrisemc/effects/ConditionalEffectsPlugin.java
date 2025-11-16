@@ -6,7 +6,7 @@ import org.bukkit.command.TabCompleter;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
-import fun.sunrisemc.effects.command.ConditionalEffects;
+import fun.sunrisemc.effects.command.ConditionalEffectsCommand;
 import fun.sunrisemc.effects.conditional_effect.ConditionalEffectManager;
 import fun.sunrisemc.effects.repeating_task.ConditionsCheckTask;
 
@@ -18,7 +18,7 @@ public class ConditionalEffectsPlugin extends JavaPlugin {
     public void onEnable() {
         instance = this;
 
-        registerCommand("conditionaleffects", new ConditionalEffects());
+        registerCommand("conditionaleffects", new ConditionalEffectsCommand());
 
         loadConfigs();
 

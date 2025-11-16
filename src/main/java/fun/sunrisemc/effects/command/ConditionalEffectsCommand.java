@@ -5,23 +5,26 @@ import java.util.List;
 import java.util.Optional;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
-import org.checkerframework.checker.nullness.qual.NonNull;
+
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import fun.sunrisemc.effects.ConditionalEffectsPlugin;
 import fun.sunrisemc.effects.conditional_effect.ConditionalEffect;
 import fun.sunrisemc.effects.conditional_effect.ConditionalEffectManager;
 import fun.sunrisemc.effects.permission.Permissions;
-import net.md_5.bungee.api.ChatColor;
 
-public class ConditionalEffects implements CommandExecutor, TabCompleter {
+public class ConditionalEffectsCommand implements CommandExecutor, TabCompleter {
 
     @Override
-    public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
+    @Nullable
+    public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String @NotNull [] args) {
         if (args.length == 1) {
             ArrayList<String> completions = new ArrayList<>();
             completions.add("help");
@@ -58,7 +61,7 @@ public class ConditionalEffects implements CommandExecutor, TabCompleter {
     }
 
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String @NotNull [] args) {
         if (args.length == 0) {
             helpMessage(sender);
             return true;
@@ -135,7 +138,7 @@ public class ConditionalEffects implements CommandExecutor, TabCompleter {
         return true;
     }
 
-    private void helpMessage(@NonNull CommandSender sender) {
+    private void helpMessage(@NotNull CommandSender sender) {
         sender.sendMessage(ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "Conditional Effects Help");
         sender.sendMessage(ChatColor.LIGHT_PURPLE + "/conditionaleffects help " + ChatColor.WHITE + "Show this help message");
         if (sender.hasPermission(Permissions.RELOAD_PERMISSION)) {
@@ -149,9 +152,13 @@ public class ConditionalEffects implements CommandExecutor, TabCompleter {
         }
     }
 
+    @NotNull
     private static ArrayList<String> getOnlinePlayerNames() {
         ArrayList<String> playerNames = new ArrayList<>();
         for (Player player : Bukkit.getOnlinePlayers()) {
+            if (player == null) {
+                continue;
+            }
             playerNames.add(player.getName());
         }
         return playerNames;
